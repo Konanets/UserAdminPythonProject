@@ -9,7 +9,7 @@ in order to run the project:
 
 4. Install pipenv: pip install pipenv
 
-5. create in project structure file .venv
+5. create in project structure folder .venv
 
 6. Install packages: pipenv install
 
