@@ -18,5 +18,6 @@ class OrderSerializer(ModelSerializer):
 
     class Meta:
         model = OrderModel
-        fields = ('__all__',)
+        fields = ('id', 'name', 'surname', 'email', 'phone', 'age', 'course', 'course_format', 'course_type', 'manager',
+                  'alreadyPaid', 'sum', 'msg', 'status', 'manager', 'created_at', 'utm', 'group', 'comments')
         read_only_fields = ('id', 'manager', 'alreadyPaid', 'created_at', 'utm')
