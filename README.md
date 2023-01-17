@@ -19,3 +19,9 @@ in order to run the project:
 
 
 
+
+Admin user passwrod and email:
+Email: admin@gmail.com
+Password: admin2000
+
+
