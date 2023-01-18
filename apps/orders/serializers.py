@@ -1,7 +1,5 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.groups.models import GroupModel
-
 from .models import CommentModel, OrderModel
 
 
@@ -13,11 +11,11 @@ class CommentSerializer(ModelSerializer):
 
 
 class OrderSerializer(ModelSerializer):
-    comments = CommentSerializer(many=True)
-    group = GroupModel()
+    comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = OrderModel
-        fields = ('id', 'name', 'surname', 'email', 'phone', 'age', 'course', 'course_format', 'course_type', 'manager',
-                  'alreadyPaid', 'sum', 'msg', 'status', 'manager', 'created_at', 'utm', 'group', 'comments')
-        read_only_fields = ('id', 'manager', 'alreadyPaid', 'created_at', 'utm')
+        fields = ('id', 'name', 'surname', 'email', 'phone', 'age', 'course', 'course_format', 'course_type',
+                  'alreadyPaid', 'sum', 'msg', 'status', 'manager', 'created_at', 'utm', 'comments', 'group')
+        read_only_fields = ('id', 'alreadyPaid', 'created_at', 'utm')
+        depth = True
