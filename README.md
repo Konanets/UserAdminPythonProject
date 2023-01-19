@@ -15,7 +15,9 @@ in order to run the project:
 
 7. Switch to pipenv interpretator: pipenv shell
 
-8. run project: python manage.py runserver
+8. Install packages: pipenv install
+
+9. run project: python manage.py runserver
 
 
 
