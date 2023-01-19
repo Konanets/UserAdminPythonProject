@@ -1,8 +1,7 @@
-from core.enums.choice_enum import ChoiceEnum
+from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice
 
 from apps.orders.models import OrderModel
 
-import django_filters
 from django_filters import OrderingFilter
 from django_filters import rest_framework as filters
 
@@ -11,21 +10,20 @@ class OrderFilter(filters.FilterSet):
     order_by_field = 'order'
     order = OrderingFilter(
         fields=(
-            ('name', 'name'), ('-name', '-name'),
-            ('id', 'id'), ('-id', '-id'),
-            ('surname', 'surname'), ('-surname', '-surname'),
-            ('email', 'email'), ('-email', '-email'),
-            ('phone', 'phone'), ('-phone', '-phone'),
-            ('age', 'age'), ('-age', '-age'),
-            ('course', 'course'), ('-course', '-course'),
-            ('course_format', 'course_format'), ('-course_format', '-course_format'),
-            ('course_type', 'course_type'), ('-course_type', '-course_type'),
-            ('sum', 'sum'), ('-sum', '-sum'),
-            ('status', 'status'), ('-status', '-status'),
-            ('alreadyPaid', 'alreadyPaid'), ('-alreadyPaid', '-alreadyPaid'),
-            ('group', 'group'), ('-group', '-group'),
-            ('created_at', 'created_at'), ('-created_at', '-created_at'),
-            ('manager', 'manager'), ('-manager', '-manager'),
+            'name',
+            'id',
+            'surname',
+            'email',
+            'phone',
+            'age',
+            'course',
+            'course_type',
+            'course_format',
+            'sum',
+            'status',
+            'alreadyPaid',
+            'group',
+            'created_at',
         )
     )
 
@@ -39,9 +37,9 @@ class OrderFilter(filters.FilterSet):
     group = filters.CharFilter(field_name='group__name', lookup_expr='icontains')
     surname = filters.CharFilter(field_name='surname', lookup_expr='icontains')
     email = filters.CharFilter(field_name='email', lookup_expr='icontains')
-    course = filters.ChoiceFilter(choices=ChoiceEnum.Courses)
-    course_format = filters.ChoiceFilter(choices=ChoiceEnum.CourseFormat)
-    course_type = filters.ChoiceFilter(choices=ChoiceEnum.CourseType)
+    course = filters.ChoiceFilter(choices=CoursesChoice.choices)
+    course_format = filters.ChoiceFilter(choices=CourseFormatChoice.choices)
+    course_type = filters.ChoiceFilter(choices=CourseTypeChoice.choices)
     manager = filters.CharFilter(field_name='manager__name', lookup_expr='icontains')
     start_date = filters.DateTimeFilter(field_name='created_at', lookup_expr='gte')
     end_date = filters.DateTimeFilter(field_name='created_at', lookup_expr='lte')

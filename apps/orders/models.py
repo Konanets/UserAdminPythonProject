@@ -1,7 +1,6 @@
-from core.enums.choice_enum import ChoiceEnum
+from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice
 from core.enums.validation_enum import RegExEnum
 
-from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
 
@@ -25,9 +24,9 @@ class OrderModel(models.Model):
         V.MinValueValidator(16),
         V.MaxValueValidator(90)
     ], null=True)
-    course = models.CharField(null=True, max_length=10, choices=ChoiceEnum.Courses)
-    course_format = models.CharField(null=True, max_length=15, choices=ChoiceEnum.CourseFormat)
-    course_type = models.CharField(null=True, max_length=100, choices=ChoiceEnum.CourseType)
+    course = models.CharField(null=True, max_length=10, choices=CoursesChoice.choices)
+    course_format = models.CharField(null=True, max_length=15, choices=CourseFormatChoice.choices)
+    course_type = models.CharField(null=True, max_length=100, choices=CourseTypeChoice.choices)
     sum = models.IntegerField(null=True, validators=[
         V.MinValueValidator(1),
         V.MaxLengthValidator(2147483647)

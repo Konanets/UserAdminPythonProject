@@ -1,22 +1,23 @@
-class ChoiceEnum:
-    Courses = (
-        ('FS', 'FS'),
-        ('QACX', 'QACX'),
-        ('JCX', 'JCX'),
-        ('JSCX', 'JSCX'),
-        ('FE', 'FE'),
-        ('PCX', 'PCX')
-    )
+from django.db import models
 
-    CourseFormat = (
-        ('static', 'static'),
-        ('online', 'online ')
-    )
 
-    CourseType = (
-        ('pro', 'pro'),
-        ('minimal', 'minimal'),
-        ('premium', 'premium'),
-        ('incubator', 'incubator'),
-        ('vip', 'vip')
-    )
+class CourseFormatChoice(models.TextChoices):
+    STATIC = 'static',
+    ONLINE = 'online'
+
+
+class CourseTypeChoice(models.TextChoices):
+    PRO = 'pro'
+    MINIMAL = 'minimal'
+    PREMIUM = 'premium'
+    INCUBATOR = 'incubator'
+    VIP = 'vip'
+
+
+class CoursesChoice(models.TextChoices):
+    FS = 'FS'
+    QACX = 'QACX'
+    JCX = 'JCX'
+    JSCX = 'JSCX'
+    FE = 'FE'
+    PCX = 'PCX'
