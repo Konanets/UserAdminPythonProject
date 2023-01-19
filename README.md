@@ -27,3 +27,5 @@ Email: admin@gmail.com
 Password: admin2000
 
 
+Documentation: http://127.0.0.1:8000/api/v1/doc
+
