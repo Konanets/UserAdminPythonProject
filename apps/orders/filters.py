@@ -24,6 +24,7 @@ class OrderFilter(filters.FilterSet):
             'alreadyPaid',
             'group',
             'created_at',
+            'manager'
         )
     )
 

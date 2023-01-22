@@ -42,4 +42,4 @@ class ProfileModel(models.Model):
     surname = models.CharField(max_length=20, validators=[
         V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg)
     ])
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='profile')

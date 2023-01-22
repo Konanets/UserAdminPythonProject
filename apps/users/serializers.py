@@ -25,10 +25,9 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'is_active', 'is_superuser', 'create_at', 'update_at', 'last_login', 'orders',
-            'profile')
+            'id', 'email', 'is_active', 'is_superuser', 'create_at', 'update_at', 'last_login', 'orders', 'profile')
         read_only_fields = (
-            'id', 'crated_at', 'update_at', 'is_superuser', 'last_login', 'is_active', 'orders')
+            'id', 'crated_at', 'update_at', 'is_superuser', 'last_login', 'is_active')
 
     @transaction.atomic()
     def create(self, validated_data):

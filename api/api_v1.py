@@ -21,5 +21,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('/auth', include('apps.auth.urls')),
     path('/orders', include('apps.orders.urls')),
+    path('/users', include('apps.users.urls')),
     path('/doc', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
