@@ -5,8 +5,7 @@ from apps.orders.serializers import OrderSerializer
 
 
 class GroupSerializer(ModelSerializer):
-    orders = OrderSerializer(many=True, read_only=True)
 
     class Meta:
-        object = GroupModel
-        fields = ('id', 'name', 'orders')
+        model = GroupModel
+        fields = ('id', 'name')
