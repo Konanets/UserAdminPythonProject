@@ -1,4 +1,4 @@
-from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice
+from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice, StatusChoice
 from core.enums.validation_enum import RegExEnum
 
 from django.core import validators as V
@@ -43,7 +43,7 @@ class OrderModel(models.Model):
     msg = models.CharField(null=True, max_length=100, validators=[
         V.MinValueValidator(1)
     ])
-    status = models.BooleanField(null=True)
+    status = models.CharField(null=True, max_length=15,choices=StatusChoice.choices)
     manager = models.ForeignKey(ProfileModel, on_delete=models.SET_NULL, null=True, related_name='orders')
 
 

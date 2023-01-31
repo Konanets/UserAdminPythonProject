@@ -21,3 +21,11 @@ class CoursesChoice(models.TextChoices):
     JSCX = 'JSCX'
     FE = 'FE'
     PCX = 'PCX'
+
+
+class StatusChoice(models.TextChoices):
+    IN_WORK = 'В работе'
+    NEW = 'Новый'
+    AGREE = 'Согласен'
+    DISAGREE = 'Не согласен'
+    DUBBLING = 'Дубляж'

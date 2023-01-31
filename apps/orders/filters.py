@@ -1,4 +1,4 @@
-from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice
+from core.enums.choice_enum import CourseFormatChoice, CoursesChoice, CourseTypeChoice, StatusChoice
 
 from apps.orders.models import OrderModel
 
@@ -33,7 +33,7 @@ class OrderFilter(filters.FilterSet):
     age = filters.NumberFilter(field_name='age', lookup_expr='exact')
     sum = filters.NumberFilter(field_name='sum', lookup_expr='exact')
     alreadyPaid = filters.NumberFilter(field_name='alreadyPaid', lookup_expr='exact')
-    status = filters.BooleanFilter(field_name='status', lookup_expr='exact')
+    status = filters.ChoiceFilter(choices=StatusChoice.choices)
     name = filters.CharFilter(field_name='name', lookup_expr='icontains')
     group = filters.CharFilter(field_name='group__name', lookup_expr='icontains')
     surname = filters.CharFilter(field_name='surname', lookup_expr='icontains')

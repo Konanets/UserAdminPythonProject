@@ -13,6 +13,7 @@ UserModel: Type[User] = get_user_model()
 
 
 class MyView(GenericAPIView):
+    serializer_class = UserSerializer
     def get_object(self):
         return self.request.user
 
