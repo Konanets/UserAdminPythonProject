@@ -29,19 +29,19 @@ class OrderModel(models.Model):
     course_type = models.CharField(null=True, max_length=100, choices=CourseTypeChoice.choices)
     sum = models.IntegerField(null=True, validators=[
         V.MinValueValidator(1),
-        V.MaxLengthValidator(2147483647)
+        V.MaxValueValidator(2147483647)
     ])
     alreadyPaid = models.IntegerField(null=True, validators=[
         V.MinValueValidator(1),
-        V.MaxLengthValidator(2147483647)
+        V.MaxValueValidator(2147483647)
     ])
     group = models.ForeignKey(GroupModel, on_delete=models.SET_NULL, null=True, related_name='orders')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     utm = models.CharField(null=True, max_length=100, validators=[
-        V.MinValueValidator(1),
+        V.MinLengthValidator(1),
     ])
     msg = models.CharField(null=True, max_length=100, validators=[
-        V.MinValueValidator(1)
+        V.MinLengthValidator(1)
     ])
     status = models.CharField(null=True, max_length=15,choices=StatusChoice.choices)
     manager = models.ForeignKey(ProfileModel, on_delete=models.SET_NULL, null=True, related_name='orders')
