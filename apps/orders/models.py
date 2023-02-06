@@ -53,4 +53,5 @@ class CommentModel(models.Model):
 
     comment = models.CharField(max_length=255, validators=[V.MinLengthValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
     order_id = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name='comments')

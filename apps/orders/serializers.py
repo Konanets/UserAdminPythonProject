@@ -8,8 +8,8 @@ from .models import CommentModel, OrderModel
 class CommentSerializer(ModelSerializer):
     class Meta:
         model = CommentModel
-        fields = ('id', 'comment', 'created_at')
-        read_only_fields = ('id', 'created_at')
+        fields = ('id', 'comment', 'created_at', 'order_id')
+        read_only_fields = ('id', 'created_at', 'order_id')
 
 
 class OrderSerializer(ModelSerializer):
