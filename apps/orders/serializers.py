@@ -20,9 +20,16 @@ class OrderSerializer(ModelSerializer):
         model = OrderModel
         fields = ('id', 'name', 'surname', 'email', 'phone', 'age', 'course', 'course_format', 'course_type',
                   'alreadyPaid', 'sum', 'msg', 'status', 'manager', 'created_at', 'utm', 'comments', 'group')
-        read_only_fields = ('id', 'created_at', 'utm', 'manager')
+        read_only_fields = ('id', 'created_at', 'utm', 'manager', 'msg')
         depth = 1
 
 
 class OrderEditSerializer(OrderSerializer):
     group = None
+
+    class Meta:
+        model = OrderModel
+        fields = ('id', 'name', 'surname', 'email', 'phone', 'age', 'course', 'course_format', 'course_type',
+                  'alreadyPaid', 'sum', 'msg', 'status', 'manager', 'created_at', 'utm', 'comments', 'group')
+        read_only_fields = ('id', 'created_at', 'utm', 'manager', 'msg')
+        depth = 0

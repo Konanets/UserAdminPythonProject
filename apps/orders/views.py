@@ -4,7 +4,7 @@ from core.pagination.page_pagination import PagePagination
 from django.utils.decorators import method_decorator
 
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView, get_object_or_404
+from rest_framework.generics import GenericAPIView, ListAPIView, get_object_or_404
 from rest_framework.response import Response
 
 from apps.orders.filters import OrderFilter
@@ -49,7 +49,10 @@ class OrderRetrieveUpdateView(GenericAPIView):
         if self.request.method == 'PATCH':
             return OrderEditSerializer
 
-        return OrderSerializer
+        if self.request.method == 'GET':
+            return OrderSerializer
+
+
 
     def get(self, *args, **kwargs):
         pk = kwargs.get('pk')
@@ -98,6 +101,4 @@ class OrderCommentsListView(GenericAPIView):
             order.manager = ProfileModel.objects.get(user_id=self.request.user.pk)
             order.save()
 
-        comments = CommentModel.objects.filter(order_id=order_id)
-        serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
