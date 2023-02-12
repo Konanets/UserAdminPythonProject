@@ -63,6 +63,9 @@ class OrderRetrieveUpdateView(GenericAPIView):
         order = get_object_or_404(OrderModel, pk=pk)
         data: dict = self.request.data
 
+        if order.manager and order.manager.pk != self.request.user.pk:
+            return Response('not your order', status.HTTP_403_FORBIDDEN)
+
         if not data.get('status'):
             order.status = StatusChoice.IN_WORK
 
@@ -91,6 +94,9 @@ class OrderCommentsListView(GenericAPIView):
         data = self.request.data
         order = OrderModel.objects.all().get(pk=order_id)
         manager = ProfileModel.objects.get(user_id=self.request.user.pk)
+
+        if order.manager and order.manager.pk != self.request.user.pk:
+            return Response('not your order', status.HTTP_403_FORBIDDEN)
 
         serializer = CommentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
