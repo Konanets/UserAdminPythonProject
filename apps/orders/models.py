@@ -14,9 +14,11 @@ class OrderModel(models.Model):
         ordering = ['-id']
 
     name = models.CharField(max_length=20, null=True,
-                            validators=[V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg)])
+                            validators=[
+                                V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg, code='iu')])
     surname = models.CharField(max_length=35, null=True,
-                               validators=[V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg)])
+                               validators=[
+                                   V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg, code='iu')])
     email = models.EmailField(null=True)
     phone = models.CharField(max_length=12, null=True,
                              validators=[V.RegexValidator(RegExEnum.PhoneNumber.pattern, RegExEnum.PhoneNumber.msg)])
@@ -43,15 +45,17 @@ class OrderModel(models.Model):
     msg = models.CharField(null=True, max_length=100, validators=[
         V.MinLengthValidator(1)
     ])
-    status = models.CharField(null=True, max_length=15,choices=StatusChoice.choices)
+    status = models.CharField(null=True, max_length=15, choices=StatusChoice.choices)
     manager = models.ForeignKey(ProfileModel, on_delete=models.SET_NULL, null=True, related_name='orders')
 
 
 class CommentModel(models.Model):
     class Meta:
         db_table = 'comments'
+        ordering = ['-created_at']
 
     comment = models.CharField(max_length=255, validators=[V.MinLengthValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     order_id = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name='comments')
+    manager = models.ForeignKey(ProfileModel, on_delete=models.CASCADE, related_name='comments')

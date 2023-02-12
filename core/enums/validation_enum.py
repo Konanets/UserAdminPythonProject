@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class RegExEnum(Enum):
-    OnlyWord = (r'^[a-zA-Zа-яА-ЯїЇ]*$', 'enter only alphanumeric characters')
+    OnlyWord = (r'^[a-zа-яёіA-ZА-ЯЇЁ]+$', 'enter only alphanumeric characters')
     ContainOneNumber = (r'\d', 'must contain 1 number (0-9)')
     ContainUpperCaseLetter = (r'[A-ZА-ЯЇ]', 'must contain 1 uppercase letter')
     ContainerLowerCaseLetter = (r'[a-zа-яї]', 'must contain 1 lowercase letter')

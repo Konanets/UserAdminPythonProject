@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.groups',
     'apps.orders',
+    'apps.admin'
 
 ]
 

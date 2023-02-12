@@ -1,14 +1,17 @@
 from rest_framework.serializers import ModelSerializer
 
 from apps.groups.serializers import GroupSerializer
+from apps.users.serializers import ProfileSerializer
 
 from .models import CommentModel, OrderModel
 
 
 class CommentSerializer(ModelSerializer):
+    manager = ProfileSerializer(read_only=True)
+
     class Meta:
         model = CommentModel
-        fields = ('id', 'comment', 'created_at', 'order_id')
+        fields = ('id', 'comment', 'created_at', 'order_id', 'manager')
         read_only_fields = ('id', 'created_at', 'order_id')
 
 

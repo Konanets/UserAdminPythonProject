@@ -25,6 +25,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
         ]
     )
     is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -37,9 +38,9 @@ class ProfileModel(models.Model):
         db_table = 'profile'
 
     name = models.CharField(max_length=20, validators=[
-        V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg)
+        V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg, code='iu')
     ])
     surname = models.CharField(max_length=20, validators=[
-        V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg)
+        V.RegexValidator(RegExEnum.OnlyWord.pattern, RegExEnum.OnlyWord.msg, code='iu')
     ])
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='profile')

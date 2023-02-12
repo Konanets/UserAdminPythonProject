@@ -52,8 +52,6 @@ class OrderRetrieveUpdateView(GenericAPIView):
         if self.request.method == 'GET':
             return OrderSerializer
 
-
-
     def get(self, *args, **kwargs):
         pk = kwargs.get('pk')
         order = get_object_or_404(OrderModel, pk=pk)
@@ -92,13 +90,14 @@ class OrderCommentsListView(GenericAPIView):
         order_id = kwargs.get('order_id')
         data = self.request.data
         order = OrderModel.objects.all().get(pk=order_id)
+        manager = ProfileModel.objects.get(user_id=self.request.user.pk)
 
         serializer = CommentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(order_id=order)
+        serializer.save(order_id=order, manager=manager)
 
         if not order.manager:
-            order.manager = ProfileModel.objects.get(user_id=self.request.user.pk)
+            order.manager = manager
             order.save()
 
         return Response(serializer.data, status.HTTP_200_OK)

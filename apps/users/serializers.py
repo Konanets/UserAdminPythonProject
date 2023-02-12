@@ -15,6 +15,7 @@ class ProfileSerializer(ModelSerializer):
     class Meta:
         model = ProfileModel
         fields = ('id', 'name', 'surname', 'user')
+        read_only_fields = ('user',)
 
 
 class UserSerializer(ModelSerializer):
@@ -23,11 +24,13 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'is_active', 'is_superuser', 'create_at', 'update_at', 'last_login', 'profile')
+            'id', 'email', 'is_active', 'is_superuser', 'is_staff', 'create_at', 'update_at', 'last_login', 'profile')
         read_only_fields = (
             'id', 'crated_at', 'update_at', 'is_superuser', 'last_login', 'is_active')
 
     @transaction.atomic()
     def create(self, validated_data):
+        profile = validated_data.pop('profile')
         user = UserModel.objects.create_user(**validated_data)
+        ProfileModel.objects.create(**profile, user=user)
         return user
