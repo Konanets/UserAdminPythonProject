@@ -11,11 +11,12 @@ djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 drf-yasg = "*"
 django-filter = "*"
-
+xlwt = "*"
+xlutils = "*"
+xlrd = "*"
 
 [dev-packages]
 isort = "*"
-
 
 [requires]
 python_version = "3.11"

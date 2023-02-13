@@ -1,6 +1,7 @@
 from core.enums.choice_enum import StatusChoice
 from core.pagination.page_pagination import PagePagination
 
+from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 
 from rest_framework import status
@@ -12,6 +13,7 @@ from apps.orders.models import CommentModel, OrderModel
 from apps.orders.serializers import CommentSerializer, OrderEditSerializer, OrderSerializer
 from apps.users.models import ProfileModel
 
+import xlwt
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -107,3 +109,67 @@ class OrderCommentsListView(GenericAPIView):
             order.save()
 
         return Response(serializer.data, status.HTTP_200_OK)
+
+
+class ExcelOrdersListView(GenericAPIView):
+    serializer_class = OrderSerializer
+    queryset = OrderModel.objects.all()
+    filterset_class = OrderFilter
+
+    def get(self, *args, **kwargs):
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="orders.xls"'
+
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Users Data')
+
+        row_num = 0
+
+        style = xlwt.XFStyle()
+
+        font = xlwt.Font()
+        font.bold = True
+        font.colour_index = 56
+        font.height = 400
+        style.font = font
+
+        borders = xlwt.Borders()
+        borders.bottom = xlwt.Borders.DASHED
+        style.borders = borders
+
+        columns = ['id', 'name', 'surname', 'email', 'phone', 'age', 'status', 'course',
+                   'course_type', 'course_format', 'manager', 'group']
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], style=style)
+
+        ws.col(0).width = 3000
+        ws.col(1).width = 5000
+        ws.col(2).width = 5000
+        ws.col(3).width = 7000
+        ws.col(4).width = 6000
+        ws.col(5).width = 3000
+        ws.col(6).width = 7000
+        ws.col(7).width = 4000
+        ws.col(8).width = 7000
+        ws.col(9).width = 9000
+        ws.col(10).width = 7000
+        ws.col(11).width = 6000
+
+        style = xlwt.XFStyle()
+        style.font.height = 250
+
+        cts_list = OrderModel.objects.all()
+        cta_filter = OrderFilter(self.request.GET, queryset=cts_list)
+        rows = cta_filter.qs.values_list('id', 'name', 'surname', 'email', 'phone', 'age', 'status',
+                                         'course',
+                                         'course_type', 'course_format', 'manager__name',
+                                         'group__name')
+        for row in rows:
+            row_num += 1
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], style=style)
+
+        wb.save(response)
+
+        return response
