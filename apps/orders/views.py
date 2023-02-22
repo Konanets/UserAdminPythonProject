@@ -100,6 +100,10 @@ class OrderCommentsListView(GenericAPIView):
         if order.manager and order.manager.user_id != self.request.user.pk:
             return Response('not your order', status.HTTP_403_FORBIDDEN)
 
+        if order.status != StatusChoice.IN_WORK:
+            order.status = StatusChoice.IN_WORK
+            order.save()
+
         serializer = CommentSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save(order_id=order, manager=manager)
