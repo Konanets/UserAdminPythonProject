@@ -49,6 +49,7 @@ class CreateUserTokenView(GenericAPIView):
 
 class StatisticsByManagerView(GenericAPIView):
     queryset = UserModel.objects.filter(is_superuser=False)
+    permission_classes = IsAdminUser,
 
     def get(self, *args, **kwargs):
         total_count = OrderModel.objects.filter(manager__user=self.kwargs.get('pk')).count()
@@ -65,6 +66,8 @@ class StatisticsByManagerView(GenericAPIView):
 
 
 class StatisticsByOrdersView(GenericAPIView):
+    permission_classes = IsAdminUser,
+
     def get(self, *args, **kwargs):
         total_count = OrderModel.objects.all().count()
 
