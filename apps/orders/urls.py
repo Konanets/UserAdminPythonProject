@@ -6,5 +6,5 @@ urlpatterns = [
     path('', OrdersListView.as_view()),
     path('/excel', ExcelOrdersListView.as_view()),
     path('/<int:pk>', OrderRetrieveUpdateView.as_view()),
-    path('/<int:order_id>/comments', OrderCommentsListView.as_view())
+    path('/<int:order_id>/comments', OrderCommentsListView.as_view()),
 ]

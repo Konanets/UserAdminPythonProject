@@ -3,6 +3,7 @@ from core.pagination.page_pagination import PagePagination
 
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
+from django.db.models import Count
 
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListAPIView, get_object_or_404
@@ -177,3 +178,17 @@ class ExcelOrdersListView(GenericAPIView):
         wb.save(response)
 
         return response
+
+
+class StatisticsByOrders(GenericAPIView):
+    def get(self, *args, **kwargs):
+        total_count = OrderModel.objects.all().count()
+
+        statuses = OrderModel.objects.values('status').annotate(count=Count('id'))
+
+        statistics = {
+            'total_count': total_count,
+            'statuses': statuses,
+        }
+
+        return Response(statistics)
