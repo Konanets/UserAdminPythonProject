@@ -37,6 +37,9 @@ class UserListCreateView(ListCreateAPIView):
 
 
 class CreateUserTokenView(GenericAPIView):
+    """
+    get some token: qwohoiboqiwbgieurbgbqierguqrbgoqbrubg
+    """
 
     def get(self, *args, **kwargs):
         pk = kwargs.get('pk')
