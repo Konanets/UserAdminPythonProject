@@ -3,7 +3,6 @@ from core.services.jwt_service import ActivateToken, JWTService
 
 from django.db.models import Count
 from django.contrib.auth import get_user_model
-from django.utils.decorators import method_decorator
 
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, get_object_or_404
@@ -15,8 +14,6 @@ from apps.users.serializers import UserSerializer
 from apps.orders.models import OrderModel
 
 from abc import ABC, abstractmethod
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
 
 UserModel: User = get_user_model()
 
