@@ -18,7 +18,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     """
     serializer_class = TokenObtainSerializer
 
-    @swagger_auto_schema(responce={status.HTTP_200_OK: TokenObtainSerializer}, security=[])
+    @swagger_auto_schema(responce={status.HTTP_200_OK: TokenObtainSerializer()}, security=[])
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
@@ -29,7 +29,7 @@ class CustomTokenRefreshView(TokenRefreshView):
     """
     serializer_class = TokenRefreshSerializer
 
-    @swagger_auto_schema(responce={status.HTTP_200_OK: TokenRefreshSerializer}, security=[])
+    @swagger_auto_schema(responce={status.HTTP_200_OK: TokenRefreshSerializer()}, security=[])
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
