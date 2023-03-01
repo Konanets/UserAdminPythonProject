@@ -1,7 +1,6 @@
 from django.urls import path
 
-from apps.auth.views import ActivateUserAccountView
-
+from apps.auth.views import ActivateUserAccountView, CustomTokenObtainPairView, CustomTokenRefreshView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [

@@ -164,7 +164,12 @@ class ExcelOrdersListView(GenericAPIView):
         style = xlwt.XFStyle()
         style.font.height = 250
 
-        cts_list = OrderModel.objects.all()
+        my = self.request.query_params.get('my')
+        cts_list = self.queryset
+
+        if my == 'true':
+            cts_list = cts_list.filter(manager__user_id__exact=self.request.user.pk)
+
         cta_filter = OrderFilter(self.request.GET, queryset=cts_list)
         rows = cta_filter.qs.values_list('id', 'name', 'surname', 'email', 'phone', 'age', 'status',
                                          'course',

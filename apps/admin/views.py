@@ -82,6 +82,8 @@ class StatisticsByOrdersView(GenericAPIView):
 
 
 class BanUserView(AdminTools):
+    serializer_class = UserSerializer
+
     def patch(self, *args, **kwargs):
         user: User = self.get_object()
 
@@ -93,6 +95,8 @@ class BanUserView(AdminTools):
 
 
 class UnBanUserView(AdminTools):
+    serializer_class = UserSerializer
+
     def patch(self, *args, **kwargs):
         user: User = self.get_object()
 
